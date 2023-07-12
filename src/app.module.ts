@@ -9,12 +9,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AwardModule } from './award/award.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { UploadModule } from './upload/upload.module';
 import { resolve, join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { RoleModule } from './role/role.module';
+import { PermissionModule } from './permission/permission.module';
+import { JwtModule } from '@nestjs/jwt';
 
 const isProd = process.env.NODE_ENV == 'production';
 
@@ -37,11 +40,12 @@ const isProd = process.env.NODE_ENV == 'production';
       synchronize: true, //是否自动同步实体文件,生产环境建议关闭
       database: process.env.DB_DATABASE, //数据库名
     }),
-
     UserModule,
     AwardModule,
     UploadModule,
     AuthModule,
+    RoleModule,
+    PermissionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

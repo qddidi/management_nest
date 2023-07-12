@@ -5,7 +5,7 @@ import { Public } from 'src/public/public.decorator';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-
+  @Public()
   @Post('login')
   login(@Body() loginAuthDto: LoginAuthDto) {
     return this.authService.login(loginAuthDto);

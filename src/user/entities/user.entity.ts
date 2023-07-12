@@ -1,10 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  BeforeInsert,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import encry from '../../utils/crypto';
 import * as crypto from 'crypto';
+import { Role } from '../../role/entities/role.entity';
 @Entity('user')
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: number; // 标记为主键，值自动生成
+  @PrimaryGeneratedColumn()
+  id: string; // 标记为主键，值自动生成
 
   @Column({ length: 30 })
   username: string; //用户名
@@ -16,8 +24,13 @@ export class User {
   avatar: string; //头像
   @Column({ nullable: true })
   email: string; //邮箱
-  @Column({ nullable: true })
-  role: string; //角色
+
+  @ManyToMany(() => Role)
+  @JoinTable({
+    name: 'user_role_relation',
+  })
+  roles: Role[]; //角色
+
   @Column({ nullable: true })
   salt: string;
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
