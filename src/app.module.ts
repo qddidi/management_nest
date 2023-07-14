@@ -18,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { PermissionModule } from './permission/permission.module';
 import { JwtModule } from '@nestjs/jwt';
+import { MenuModule } from './menu/menu.module';
 
 const isProd = process.env.NODE_ENV == 'production';
 
@@ -46,6 +47,7 @@ const isProd = process.env.NODE_ENV == 'production';
     AuthModule,
     RoleModule,
     PermissionModule,
+    MenuModule,
   ],
   controllers: [AppController],
   providers: [AppService],

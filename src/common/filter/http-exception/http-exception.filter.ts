@@ -13,6 +13,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
     const status = exception.getStatus();
+
     if (exception instanceof ApiException) {
       response.status(status).json({
         code: exception.getErrorCode(),
@@ -27,7 +28,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       code: status,
       timestamp: new Date().toISOString(),
       path: request.url,
-      describe: exception.message,
+      describe: (exception as any)?.response?.message || exception.message,
     });
   }
 }

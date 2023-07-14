@@ -15,6 +15,8 @@ export class PermissionGuard implements CanActivate {
       user?: any;
     }
     const request: CusRequest = context.switchToHttp().getRequest();
+    console.log(this.reflector);
+
     const requiredPermissions =
       this.reflector.getAllAndOverride<string[]>('permissions', [
         context.getClass(),

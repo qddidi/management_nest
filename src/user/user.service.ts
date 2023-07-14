@@ -8,6 +8,7 @@ import { ApiException } from 'src/common/filter/http-exception/api.exception';
 import { ApiErrorCode } from 'src/common/enums/api-error-code.enum';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+
 @Injectable()
 export class UserService {
   constructor(
@@ -22,6 +23,7 @@ export class UserService {
     const existUser = await this.userRepository.findOne({
       where: { username },
     });
+    console.log(existUser);
 
     if (existUser)
       throw new ApiException('用户已存在', ApiErrorCode.USER_EXIST);
