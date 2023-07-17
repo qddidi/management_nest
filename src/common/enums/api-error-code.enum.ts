@@ -9,4 +9,5 @@ export enum ApiErrorCode {
   FORBIDDEN = 400, //验证不通过
   LOGIN_EXPIRE = 401, //登录状态已过期
   Forbidden = 403, //权限不足
+  DATABASE_ERROR = 30001,
 }

@@ -6,6 +6,8 @@ import { Menu } from './entities/menu.entity';
 import { User } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import { convertToTree } from 'src/utils/convertToTree';
+import { ApiErrorCode } from 'src/common/enums/api-error-code.enum';
+import { ApiException } from 'src/common/filter/http-exception/api.exception';
 
 @Injectable()
 export class MenuService {
@@ -15,8 +17,13 @@ export class MenuService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
-  create(createMenuDto: CreateMenuDto) {
-    return this.menuRepository.save(createMenuDto);
+  async create(createMenuDto: CreateMenuDto) {
+    try {
+      await this.menuRepository.save(createMenuDto);
+    } catch (error) {
+      throw new ApiException(error, ApiErrorCode.DATABASE_ERROR);
+    }
+    return '操作成功';
   }
 
   async findMenu(user) {
@@ -25,7 +32,7 @@ export class MenuService {
       .leftJoinAndSelect('user.roles', 'role')
       .leftJoinAndSelect('role.menus', 'menu')
       .where({ username: user.username })
-      .orderBy('menu.orderNum', 'DESC')
+      .orderBy('menu.orderNum', 'ASC')
       .getOne();
 
     interface MenuMap {

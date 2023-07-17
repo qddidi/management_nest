@@ -26,8 +26,10 @@ export class Menu {
   })
   menuType: string;
   //菜单图标
+
   @Column({
     length: 50,
+    nullable: true,
   })
   icon: string;
 
