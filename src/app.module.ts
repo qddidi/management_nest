@@ -10,7 +10,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AwardModule } from './award/award.module';
+
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { UploadModule } from './upload/upload.module';
 import { resolve, join } from 'path';
@@ -42,7 +42,6 @@ const isProd = process.env.NODE_ENV == 'production';
       database: process.env.DB_DATABASE, //数据库名
     }),
     UserModule,
-    AwardModule,
     UploadModule,
     AuthModule,
     RoleModule,
