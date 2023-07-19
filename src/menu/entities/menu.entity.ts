@@ -14,7 +14,7 @@ export class Menu {
   @Column({
     length: 20,
   })
-  menuName: string;
+  name: string;
   //排序
   @Column()
   orderNum: number;
